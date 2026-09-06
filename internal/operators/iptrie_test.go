@@ -141,7 +141,6 @@ func TestIPTrieDirectMethodsCoverage(t *testing.T) {
 	trie.InsertPrefix(netip.Prefix{})
 }
 
-
 func benchmarkCorazaIPMatch(b *testing.B, numCIDRs int) {
 	subnets := ""
 	for i := 0; i < numCIDRs; i++ {

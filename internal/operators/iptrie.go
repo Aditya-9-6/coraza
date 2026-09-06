@@ -36,18 +36,19 @@ func (t *IPTrie) InsertPrefix(prefix netip.Prefix) {
 	var root *iptrieNode
 	var bytes []byte
 
-	if addr.Is4() {
+	switch {
+	case addr.Is4():
 		root = t.v4Root
 		b4 := addr.As4()
 		bytes = b4[:]
 		if bits > 32 {
 			bits = 32
 		}
-	} else if addr.Is6() {
+	case addr.Is6():
 		root = t.v6Root
 		b16 := addr.As16()
 		bytes = b16[:]
-	} else {
+	default:
 		return
 	}
 
@@ -89,17 +90,18 @@ func (t *IPTrie) ContainsAddr(clientIP netip.Addr) bool {
 	var bytes []byte
 	var maxBits int
 
-	if addr.Is4() {
+	switch {
+	case addr.Is4():
 		curr = t.v4Root
 		b4 := addr.As4()
 		bytes = b4[:]
 		maxBits = 32
-	} else if addr.Is6() {
+	case addr.Is6():
 		curr = t.v6Root
 		b16 := addr.As16()
 		bytes = b16[:]
 		maxBits = 128
-	} else {
+	default:
 		return false
 	}
 
